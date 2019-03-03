@@ -1,4 +1,5 @@
 #include <iostream>
+ 
 
 
 using namespace std ; 
@@ -35,9 +36,10 @@ void game(){
     setUp();
 
     while(!gameOver){
-         draw() ; 
-         input() ; 
-         logic() ; 
+
+        draw() ;
+        input() ;
+        logic() ;
     }
 }
 
@@ -59,29 +61,37 @@ void verticalBorder(int width){
 
         cout << "*" ; 
     }
+    cout << endl ;
 }
 
-void horizontalBorder(int hieght, int height){
+void horizontalBorder(int width, int height){
 
-    for(int i = 0 ; i < width ; i++){
+    for(int i = 0 ; i < height ; i++){
 
-        for(int j; j < height ; j++){
+        for(int j = 0 ; j < width ; j++){
             
-            if((j == 0)  || j == (height - 1)){
-                cout << "*" ; 
+            if((j == 0) || (j == width - 1)){
+                cout << "*" ;
+            }
+            else {
+                cout << " " ;
             }
         }
+
+        cout << endl ;
     }
 }
 
 void draw(){
- 
+
+    system("clear") ;
     verticalBorder(width) ; 
     horizontalBorder(width, height) ;
     verticalBorder(width) ; 
 }
 
 void input(){
+
 
 }
 
