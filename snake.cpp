@@ -1,15 +1,16 @@
 #include <iostream>
- 
-
 
 using namespace std ; 
 
-enum direction {
+enum snakeDirection {
+    stop = 0,
     left,
     right,
     up,
     down, 
 };
+
+snakeDirection sDir ;
 
 void game() ;  
 void setUp() ; 
@@ -57,9 +58,9 @@ void setUp(){
 
 void verticalBorder(int width){
 
-    for(int i = 0 ; i < width ; i++){
+    for(int i = 0 ; i < width+1  ; i++){
 
-        cout << "*" ; 
+        cout << "#" ; 
     }
     cout << endl ;
 }
@@ -70,11 +71,20 @@ void horizontalBorder(int width, int height){
 
         for(int j = 0 ; j < width ; j++){
             
-            if((j == 0) || (j == width - 1)){
-                cout << "*" ;
+            if((j == 0) || (j == width-1)){
+
+                cout << "#" ;
+            }
+            if(i == foodY && j == foodX){
+
+                cout << "0" ;
+            }
+            else if(i == coordinateY && j == coordnateX ){
+
+                    cout << "*" ;
             }
             else {
-                cout << " " ;
+                cout << " ";
             }
         }
 
