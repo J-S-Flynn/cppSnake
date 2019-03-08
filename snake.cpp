@@ -18,10 +18,10 @@ enum snakeDirection {
 snakeDirection sDir ;
 
 void welcomeScreen() ;
-void game() ;  
-void setUp() ; 
-void draw() ; 
-void input() ; 
+void game() ;
+void draw(WINDOW * win) ;
+WINDOW * setUp() ;
+void input(WINDOW * win) ;
 void logic() ;
 
 bool gameOver ; 
@@ -41,12 +41,12 @@ void game(){
 
     initscr() ;
     welcomeScreen() ;
-    setUp() ;
+    WINDOW * win = setUp() ;
 
     while(!gameOver){
 
-        draw() ;
-        input() ;
+        draw(win) ;
+        input(win) ;
         logic() ;
     }
 
@@ -63,7 +63,10 @@ void welcomeScreen(){
 
 }
 
-void setUp(){
+WINDOW * setUp(){
+
+
+    WINDOW * win  = newwin(height, width, 5,5) ;
 
     gameOver = false ; 
 
@@ -73,61 +76,37 @@ void setUp(){
     foodX = rand() % width ;
     foodY = rand() % height ;  
     pionts = 0 ;
+
+    wmove(win, coordnateX, coordinateY) ;
+
+    return win ;
 }
 
-//void verticalBorder(int width){
-//
-//    for(int i = 0 ; i < width+1  ; i++){
-//
-//        cout << "#" ;
-//    }
-//    cout << endl ;
-//}
-//
-//void horizontalBorder(int width, int height){
-//
-//    for(int i = 0 ; i < height ; i++){
-//
-//        for(int j = 0 ; j < width ; j++){
-//
-//            if((j == 0) || (j == width-1)){
-//
-//                cout << "#" ;
-//            }
-//            if(i == foodY && j == foodX){
-//
-//                cout << "0" ;
-//            }else if(i == coordinateY && j == coordnateX ){
-//
-//                    cout << "*" ;
-//            }else {
-//                cout << " ";
-//            }
-//        }
-//
-//        cout << endl  ;
-//    }
-//
-//}
-
-void draw(){
-
+void draw(WINDOW * win){
 
     clear();
-
-    WINDOW * win  = newwin(height, width, 5,5) ;
 
     refresh() ;
 
     box(win,0,0) ;
     mvwprintw(win, 0, 2," Snake ") ;
-
+    mvwprintw(win, foodY, foodX, "@") ;
     wrefresh(win) ;
+
 
     getch();
 }
 
-void input(){
+void input(WINDOW * win){
+
+    keypad(win, true) ;
+
+    refresh() ;
+
+    int keyStroke = wgetch(win) ;
+
+    //if(keyStroke == )
+
 
 
 }
