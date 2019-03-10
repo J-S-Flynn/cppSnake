@@ -1,5 +1,5 @@
 #include <iostream>
-#include <curses.h>
+#include <ncurses.h>
 
 using namespace std ; 
 
@@ -50,6 +50,8 @@ void game(){
         logic() ;
     }
 
+    refresh() ;
+    mvwprintw(win, height/2, width/2, "Game Over") ;
     endwin() ;
 }
 
@@ -60,6 +62,7 @@ void welcomeScreen(){
     cout << "\n\n\n\t\tWelcome to snake press enter to continue \r " << endl  ;
 
     getch() ;
+    refresh() ;
 
 }
 
@@ -92,9 +95,6 @@ void draw(WINDOW * win){
     mvwprintw(win, 0, 2," Snake ") ;
     mvwprintw(win, foodY, foodX, "@") ;
     wrefresh(win) ;
-
-
-    getch();
 }
 
 void input(WINDOW * win){
@@ -105,9 +105,21 @@ void input(WINDOW * win){
 
     int keyStroke = wgetch(win) ;
 
-    //if(keyStroke == )
+    if(keyStroke == KEY_UP){
+        mvwprintw(win, height/2, width/2, "up") ;
+    }
+    if(keyStroke == KEY_DOWN){
+        mvwprintw(win, height/2, width/2, "down") ;
+    }
+    if(keyStroke == KEY_LEFT){
+        mvwprintw(win, height/2, width/2, "left") ;
+    }
+    if(keyStroke == KEY_RIGHT){
+        mvwprintw(win, height/2, width/2, "right") ;
+    }
 
 
+    wrefresh(win) ;
 
 }
 
