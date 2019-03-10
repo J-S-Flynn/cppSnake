@@ -7,15 +7,15 @@ using namespace std ;
 //蛇　ゲーム　
 //foray into game c++
 
-enum snakeDirection {
-    stop = 0,
-    left,
-    right,
-    up,
-    down, 
+enum SnakeDirection {
+
+    moveLeft,
+    moveRight,
+    moveUp,
+    moveDown,
 };
 
-snakeDirection sDir ;
+SnakeDirection sDirection ;
 
 void welcomeScreen() ;
 void game() ;
@@ -27,8 +27,7 @@ void logic() ;
 bool gameOver ; 
 const int width = 50 ;
 const int height = 15 ;
-
-int coordnateX, coordinateY, foodX, foodY, pionts;
+int coordinateX, coordinateY, foodX, foodY, pionts;
 
 int main(){
 
@@ -73,31 +72,37 @@ WINDOW * setUp(){
 
     gameOver = false ; 
 
-    coordnateX = width / 2 ;
+    coordinateX = width / 2 ;
     coordinateY = height / 2  ; 
 
     foodX = rand() % width ;
     foodY = rand() % height ;  
     pionts = 0 ;
 
-    wmove(win, coordnateX, coordinateY) ;
+    sDirection = moveUp ;
+
+    wmove(win, coordinateY, coordinateX) ;
 
     return win ;
 }
 
 void draw(WINDOW * win){
 
-    clear();
+    wclear(win);
 
     refresh() ;
 
     box(win,0,0) ;
     mvwprintw(win, 0, 2," Snake ") ;
-    mvwprintw(win, foodY, foodX, "@") ;
+    mvwprintw(win, foodY, foodX, "*") ;
+    mvwprintw(win, coordinateY, coordinateX, "[]") ;
     wrefresh(win) ;
+
+    refresh() ;
 }
 
 void input(WINDOW * win){
+
 
     keypad(win, true) ;
 
@@ -106,23 +111,31 @@ void input(WINDOW * win){
     int keyStroke = wgetch(win) ;
 
     if(keyStroke == KEY_UP){
-        mvwprintw(win, height/2, width/2, "up") ;
+         sDirection = moveUp ;
     }
     if(keyStroke == KEY_DOWN){
-        mvwprintw(win, height/2, width/2, "down") ;
+        sDirection = moveDown ;
     }
     if(keyStroke == KEY_LEFT){
-        mvwprintw(win, height/2, width/2, "left") ;
+        sDirection = moveLeft ;
     }
     if(keyStroke == KEY_RIGHT){
-        mvwprintw(win, height/2, width/2, "right") ;
+        sDirection = moveRight ;
     }
 
-
     wrefresh(win) ;
-
 }
 
 void logic(){
-     
+
+    switch (sDirection){
+        case moveUp: coordinateY -= 1 ;
+        break ;
+        case moveDown: coordinateY += 1 ;
+        break ;
+        case moveLeft: coordinateX -= 1 ;
+        break ;
+        case moveRight: coordinateX += 1 ;
+        break ;
+    }
 }
