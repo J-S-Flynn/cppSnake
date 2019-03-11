@@ -7,19 +7,21 @@ using namespace std ;
 //蛇　ゲーム　
 //foray into game c++
 
-enum snakeDirection {
-    stop = 0,
-    left,
-    right,
-    up,
-    down, 
+enum SnakeDirection {
+
+    moveLeft,
+    moveRight,
+    moveUp,
+    moveDown,
+    quit,
 };
 
-snakeDirection sDir ;
+SnakeDirection sDirection ;
 
 void welcomeScreen() ;
 void game() ;
 void draw(WINDOW * win) ;
+void randomFood() ;
 WINDOW * setUp() ;
 void input(WINDOW * win) ;
 void logic() ;
@@ -27,14 +29,24 @@ void logic() ;
 bool gameOver ; 
 const int width = 50 ;
 const int height = 15 ;
-
-int coordnateX, coordinateY, foodX, foodY, pionts;
+int coordinateX, coordinateY, foodX, foodY, pionts;
 
 int main(){
 
     game() ; 
     
     return 0 ; 
+}
+
+void welcomeScreen(){
+
+    refresh() ;
+
+    cout << "\n\n\n\t\tWelcome to snake press enter to continue \r " << endl  ;
+
+    getch() ;
+    refresh() ;
+
 }
 
 void game(){
@@ -55,17 +67,6 @@ void game(){
     endwin() ;
 }
 
-void welcomeScreen(){
-
-    refresh() ;
-
-    cout << "\n\n\n\t\tWelcome to snake press enter to continue \r " << endl  ;
-
-    getch() ;
-    refresh() ;
-
-}
-
 WINDOW * setUp(){
 
 
@@ -73,31 +74,31 @@ WINDOW * setUp(){
 
     gameOver = false ; 
 
-    coordnateX = width / 2 ;
+    coordinateX = width / 2 ;
     coordinateY = height / 2  ; 
 
-    foodX = rand() % width ;
-    foodY = rand() % height ;  
     pionts = 0 ;
 
-    wmove(win, coordnateX, coordinateY) ;
-
+    wmove(win, coordinateY, coordinateX) ;
+    randomFood() ;
     return win ;
 }
 
 void draw(WINDOW * win){
 
-    clear();
-
-    refresh() ;
+    wclear(win);
 
     box(win,0,0) ;
     mvwprintw(win, 0, 2," Snake ") ;
-    mvwprintw(win, foodY, foodX, "@") ;
+    mvwprintw(win, foodY, foodX, "*") ;
+    mvwprintw(win, coordinateY, coordinateX, "*") ;
     wrefresh(win) ;
+
+    refresh() ;
 }
 
 void input(WINDOW * win){
+
 
     keypad(win, true) ;
 
@@ -106,23 +107,60 @@ void input(WINDOW * win){
     int keyStroke = wgetch(win) ;
 
     if(keyStroke == KEY_UP){
-        mvwprintw(win, height/2, width/2, "up") ;
+         sDirection = moveUp ;
     }
     if(keyStroke == KEY_DOWN){
-        mvwprintw(win, height/2, width/2, "down") ;
+        sDirection = moveDown ;
     }
     if(keyStroke == KEY_LEFT){
-        mvwprintw(win, height/2, width/2, "left") ;
+        sDirection = moveLeft ;
     }
     if(keyStroke == KEY_RIGHT){
-        mvwprintw(win, height/2, width/2, "right") ;
+        sDirection = moveRight ;
+    }
+    if(keyStroke == 'q'){
+        sDirection = quit ;
     }
 
 
     wrefresh(win) ;
+}
+/*
+ * need to implaent the tail and
+ * make the movment automatic in each draw phase
+ */
+void logic(){
 
+    switch (sDirection){
+        case moveUp: coordinateY-- ;
+        break ;
+        case moveDown: coordinateY++ ;
+        break ;
+        case moveLeft: coordinateX-- ;
+        break ;
+        case moveRight: coordinateX++;
+        break ;
+        case quit: gameOver = true;
+            break;
+    }
+
+    if(coordinateX == foodX && coordinateY == foodY){
+        pionts++ ;
+        randomFood() ;
+    }
+
+    if(coordinateX > width || coordinateX < 0 || coordinateX > width || coordinateX < 0){
+        gameOver = true ;
+    }
 }
 
-void logic(){
-     
+void randomFood(){
+
+    foodX = rand() % (width - 2) ;
+    foodY = rand() % (height - 2) ;
+
+    if(foodX == 0 || foodX == width || foodY == 0 || foodY == height){
+        randomFood() ;
+    }
+
 }
