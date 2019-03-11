@@ -13,6 +13,7 @@ enum SnakeDirection {
     moveRight,
     moveUp,
     moveDown,
+    quit,
 };
 
 SnakeDirection sDirection ;
@@ -20,6 +21,7 @@ SnakeDirection sDirection ;
 void welcomeScreen() ;
 void game() ;
 void draw(WINDOW * win) ;
+void randomFood() ;
 WINDOW * setUp() ;
 void input(WINDOW * win) ;
 void logic() ;
@@ -34,6 +36,17 @@ int main(){
     game() ; 
     
     return 0 ; 
+}
+
+void welcomeScreen(){
+
+    refresh() ;
+
+    cout << "\n\n\n\t\tWelcome to snake press enter to continue \r " << endl  ;
+
+    getch() ;
+    refresh() ;
+
 }
 
 void game(){
@@ -54,17 +67,6 @@ void game(){
     endwin() ;
 }
 
-void welcomeScreen(){
-
-    refresh() ;
-
-    cout << "\n\n\n\t\tWelcome to snake press enter to continue \r " << endl  ;
-
-    getch() ;
-    refresh() ;
-
-}
-
 WINDOW * setUp(){
 
 
@@ -75,14 +77,10 @@ WINDOW * setUp(){
     coordinateX = width / 2 ;
     coordinateY = height / 2  ; 
 
-    foodX = rand() % width ;
-    foodY = rand() % height ;  
     pionts = 0 ;
 
-    sDirection = moveUp ;
-
     wmove(win, coordinateY, coordinateX) ;
-
+    randomFood() ;
     return win ;
 }
 
@@ -90,12 +88,10 @@ void draw(WINDOW * win){
 
     wclear(win);
 
-    refresh() ;
-
     box(win,0,0) ;
     mvwprintw(win, 0, 2," Snake ") ;
     mvwprintw(win, foodY, foodX, "*") ;
-    mvwprintw(win, coordinateY, coordinateX, "[]") ;
+    mvwprintw(win, coordinateY, coordinateX, "*") ;
     wrefresh(win) ;
 
     refresh() ;
@@ -122,20 +118,49 @@ void input(WINDOW * win){
     if(keyStroke == KEY_RIGHT){
         sDirection = moveRight ;
     }
+    if(keyStroke == 'q'){
+        sDirection = quit ;
+    }
+
 
     wrefresh(win) ;
 }
-
+/*
+ * need to implaent the tail and
+ * make the movment automatic in each draw phase
+ */
 void logic(){
 
     switch (sDirection){
-        case moveUp: coordinateY -= 1 ;
+        case moveUp: coordinateY-- ;
         break ;
-        case moveDown: coordinateY += 1 ;
+        case moveDown: coordinateY++ ;
         break ;
-        case moveLeft: coordinateX -= 1 ;
+        case moveLeft: coordinateX-- ;
         break ;
-        case moveRight: coordinateX += 1 ;
+        case moveRight: coordinateX++;
         break ;
+        case quit: gameOver = true;
+            break;
     }
+
+    if(coordinateX == foodX && coordinateY == foodY){
+        pionts++ ;
+        randomFood() ;
+    }
+
+    if(coordinateX > width || coordinateX < 0 || coordinateX > width || coordinateX < 0){
+        gameOver = true ;
+    }
+}
+
+void randomFood(){
+
+    foodX = rand() % (width - 2) ;
+    foodY = rand() % (height - 2) ;
+
+    if(foodX == 0 || foodX == width || foodY == 0 || foodY == height){
+        randomFood() ;
+    }
+
 }
