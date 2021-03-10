@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
+project(snake)
 set(CMAKE_CXX_FLAGS "-lncurses")
 
 add_executable(intro snake.cpp)

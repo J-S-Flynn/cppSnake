@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/j.s.flynn/Repos/CppFundimentalsRefresher/cppSnake
+/home/jason/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/jason/CLionProjects/cppSnake
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/j.s.flynn/Repos/CppFundimentalsRefresher/cppSnake/cmake-build-debug
+-- Build files have been written to: /home/jason/CLionProjects/cppSnake/cmake-build-debug

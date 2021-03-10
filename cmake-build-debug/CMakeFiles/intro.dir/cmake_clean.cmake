@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/intro.dir/snake.cpp.o"
-  "intro.pdb"
   "intro"
+  "intro.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
