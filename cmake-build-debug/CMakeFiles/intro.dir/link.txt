@@ -1,1 +1,1 @@
-/usr/bin/c++  -lncurses -g   CMakeFiles/intro.dir/snake.cpp.o  -o intro  -lncurses 
+/usr/bin/c++  -lncurses -g   CMakeFiles/intro.dir/src/snake.cpp.o  -o intro  -lncurses 

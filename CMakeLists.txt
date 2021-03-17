@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(snake)
 set(CMAKE_CXX_FLAGS "-lncurses")
 
-add_executable(intro snake.cpp)
+add_executable(intro src/snake.cpp src/snake.h)
 
 include_directories(/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/curses.h/include)
 

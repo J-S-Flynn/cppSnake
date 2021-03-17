@@ -6,9 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/jason/CLionProjects/cppSnake/snake.cpp
+/home/jason/CLionProjects/cppSnake/src/snake.cpp
+snake.h
+/home/jason/CLionProjects/cppSnake/src/snake.h
+
+/home/jason/CLionProjects/cppSnake/src/snake.h
 iostream
 -
+vector
+-
 ncurses.h
+-
+cstdlib
 -
 
